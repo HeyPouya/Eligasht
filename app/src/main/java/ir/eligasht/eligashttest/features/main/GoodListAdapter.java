@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import ir.eligasht.eligashttest.POJOs.GoodListDatabaseModel;
 import ir.eligasht.eligashttest.R;
@@ -42,7 +44,7 @@ public class GoodListAdapter extends RecyclerView.Adapter<GoodListAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.name.setText(list.get(position).getName());
-        holder.price.setText(String.format("%s %s", list.get(position).getPrice(), mContext.getString(R.string.toman)));
+        holder.price.setText(String.format("%s %s", NumberFormat.getNumberInstance(Locale.US).format(list.get(position).getPrice()), mContext.getString(R.string.toman)));
         holder.quantity.setText(String.format("%s : %s", mContext.getString(R.string.quantity),list.get(position).getQuantity()));
         holder.img.setImageResource(list.get(position).getPicAddress());
     }

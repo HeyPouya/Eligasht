@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import ir.eligasht.eligashttest.POJOs.GoodListDatabaseModel;
 import ir.eligasht.eligashttest.R;
@@ -42,7 +44,7 @@ public class BasketListAdapter extends RecyclerView.Adapter<BasketListAdapter.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.name.setText(list.get(position).getName());
-        holder.price.setText(String.valueOf(list.get(position).getPrice()));
+        holder.price.setText(String.format("%s %s", NumberFormat.getNumberInstance(Locale.US).format(list.get(position).getPrice()), mContext.getString(R.string.toman)));
         holder.productQty.setText(String.valueOf(list.get(position).getBuyQuantity()));
         holder.img.setImageResource(list.get(position).getPicAddress());
     }

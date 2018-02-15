@@ -8,6 +8,9 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import io.realm.Realm;
 import ir.eligasht.eligashttest.BaseActivity;
 import ir.eligasht.eligashttest.POJOs.GoodListDatabaseModel;
@@ -50,7 +53,7 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
             realm = Realm.getDefaultInstance();
             GoodListDatabaseModel model = realm.where(GoodListDatabaseModel.class).equalTo("id", id).findFirst();
             name.setText(model.getName());
-            price.setText(String.format("%s %s", model.getPrice(), getString(R.string.toman)));
+            price.setText(String.format("%s %s", NumberFormat.getNumberInstance(Locale.US).format(model.getPrice()), getString(R.string.toman)));
             quantity.setText(String.format("%s %s", model.getQuantity(), getString(R.string.numbers)));
             description.setText(String.format("%s : %s", getString(R.string.description), model.getDescription()));
             img.setImageResource(model.getPicAddress());
