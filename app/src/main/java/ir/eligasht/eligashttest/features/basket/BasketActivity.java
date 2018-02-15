@@ -87,13 +87,12 @@ public class BasketActivity extends BaseActivity implements BasketContract.View,
                         for (int i = 0; i < userModel.size(); i++) {
                             GoodListDatabaseModel model = realm.where(GoodListDatabaseModel.class).equalTo("id", userModel.get(i).getProductId()).findFirst();
                             int qty = model.getQuantity();
-                            Timber.d("the qty is beffore%s", qty);
                             if (qty - userModel.get(i).getQuantity() > 0) {
                                 model.setQuantity(qty - userModel.get(i).getQuantity());
+                            } else {
                                 presenter.outOfQtyRequested();
                             }
                             realm.insertOrUpdate(model);
-                            Timber.d("the qty is after%s", model.getQuantity());
                         }
 
                     }
@@ -114,6 +113,30 @@ public class BasketActivity extends BaseActivity implements BasketContract.View,
     @Override
     public void showToast(int message) {
         Gen.showToast(mContext, getString(message));
+    }
+
+    @Override
+    public void clearBasket() {
+        try {
+            realm = Realm.getDefaultInstance();
+            final List<UserBasketDatabaseModel> models = realm.where(UserBasketDatabaseModel.class).findAll();
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    while (models.size() > 0) {
+                        Timber.d("size is" + models.size());
+                        for (int i = 0; i < models.size(); i++) {
+                            Timber.d("current i is" + i);
+                            models.get(i).deleteFromRealm();
+                        }
+                    }
+
+                }
+            });
+        } finally {
+            if (realm != null)
+                realm.close();
+        }
     }
 
     @Click

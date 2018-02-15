@@ -111,7 +111,7 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
         } finally {
             if (realm != null) {
                 realm.close();
-                Gen.showToast(mContext, "با موفقیت انجام شد");
+                presenter.addedToBasketSuccessfuly();
             }
         }
     }

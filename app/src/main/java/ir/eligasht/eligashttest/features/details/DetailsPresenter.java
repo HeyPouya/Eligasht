@@ -54,4 +54,9 @@ public class DetailsPresenter implements DetailsContract.Presenter {
     public void onShowBasketClicked() {
         view.gotoBasketView();
     }
+
+    @Override
+    public void addedToBasketSuccessfuly() {
+        view.showToast(R.string.successful);
+    }
 }

@@ -31,6 +31,7 @@ public class BasketPresenter implements BasketContract.Presenter {
     @Override
     public void onBuyingFinished() {
         view.showToast(R.string.successful);
+        view.clearBasket();
         view.finishView();
     }
 

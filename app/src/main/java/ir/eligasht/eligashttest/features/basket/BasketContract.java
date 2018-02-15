@@ -14,6 +14,8 @@ public class BasketContract {
         void performeTheBuy();
 
         void showToast(int message);
+
+        void clearBasket();
     }
 
     interface Presenter {

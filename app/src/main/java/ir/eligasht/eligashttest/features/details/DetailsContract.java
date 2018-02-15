@@ -33,5 +33,7 @@ public class DetailsContract {
         void detachView();
 
         void onShowBasketClicked();
+
+        void addedToBasketSuccessfuly();
     }
 }
